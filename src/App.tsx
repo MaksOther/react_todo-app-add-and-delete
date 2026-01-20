@@ -5,6 +5,7 @@ import { addTodo, deleteTodo, getTodos, USER_ID } from './api/todos';
 import { Todo } from './types/Todo';
 import { TodoList } from './components/TodoList';
 import { Footer } from './components/Footer';
+import { Header } from './components/Header';
 import { Status } from './types/Status';
 
 export const App: React.FC = () => {
@@ -130,29 +131,14 @@ export const App: React.FC = () => {
       <h1 className="todoapp__title">todos</h1>
 
       <div className="todoapp__content">
-        <header className="todoapp__header">
-          <button
-            type="button"
-            className={classNames('todoapp__toggle-all', {
-              active: isAllCompleted,
-            })}
-            data-cy="ToggleAllButton"
-            aria-label="Toggle all todos"
-          />
-
-          <form onSubmit={handleSubmit}>
-            <input
-              data-cy="NewTodoField"
-              type="text"
-              className="todoapp__new-todo"
-              placeholder="What needs to be done?"
-              ref={inputRef}
-              value={title}
-              onChange={e => setTitle(e.target.value)}
-              disabled={loading}
-            />
-          </form>
-        </header>
+        <Header
+          title={title}
+          setTitle={setTitle}
+          onSubmit={handleSubmit}
+          inputRef={inputRef}
+          loading={loading}
+          isAllCompleted={isAllCompleted}
+        />
 
         {todos.length > 0 && (
           <>
