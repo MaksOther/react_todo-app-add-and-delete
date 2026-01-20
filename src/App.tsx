@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { UserWarning } from './UserWarning';
-import { getTodos, addTodo, deleteTodo, USER_ID } from './api/todos';
+import { addTodo, deleteTodo, getTodos, USER_ID } from './api/todos';
 import { Todo } from './types/Todo';
 import { TodoList } from './components/TodoList';
 import { Footer } from './components/Footer';
+import { Status } from './types/Status';
 
 export const App: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [errorMessage, setErrorMessage] = useState<string>('');
-  const [filterStatus, setFilterStatus] = useState('all');
+  const [filterStatus, setFilterStatus] = useState<Status>(Status.All);
 
   const [title, setTitle] = useState<string>('');
   const [tempTodo, setTempTodo] = useState<Todo | null>(null);
@@ -19,11 +20,11 @@ export const App: React.FC = () => {
   const inputRef = React.useRef<HTMLInputElement>(null);
 
   const filteredTodos = todos.filter(todo => {
-    if (filterStatus === 'active') {
+    if (filterStatus === Status.Active) {
       return !todo.completed;
     }
 
-    if (filterStatus === 'completed') {
+    if (filterStatus === Status.Completed) {
       return todo.completed;
     }
 
@@ -67,6 +68,7 @@ export const App: React.FC = () => {
 
     if (!trimmedTitle) {
       setErrorMessage('Title should not be empty');
+
       return;
     }
 

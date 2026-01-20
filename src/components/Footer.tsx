@@ -1,11 +1,12 @@
 import React from 'react';
 import classNames from 'classnames';
+import { Status } from '../types/Status';
 
 interface Props {
   activeCount: number;
-  filterStatus: string;
+  filterStatus: Status;
   hasCompletedTodos: boolean;
-  onFilterChange: (status: string) => void;
+  onFilterChange: (status: Status) => void;
   onClearCompleted: () => void;
 }
 
@@ -26,10 +27,10 @@ export const Footer: React.FC<Props> = ({
         <a
           href="#/"
           className={classNames('filter__link', {
-            selected: filterStatus === 'all',
+            selected: filterStatus === Status.All,
           })}
           data-cy="FilterLinkAll"
-          onClick={() => onFilterChange('all')}
+          onClick={() => onFilterChange(Status.All)}
         >
           All
         </a>
@@ -37,10 +38,10 @@ export const Footer: React.FC<Props> = ({
         <a
           href="#/active"
           className={classNames('filter__link', {
-            selected: filterStatus === 'active',
+            selected: filterStatus === Status.Active,
           })}
           data-cy="FilterLinkActive"
-          onClick={() => onFilterChange('active')}
+          onClick={() => onFilterChange(Status.Active)}
         >
           Active
         </a>
@@ -48,10 +49,10 @@ export const Footer: React.FC<Props> = ({
         <a
           href="#/completed"
           className={classNames('filter__link', {
-            selected: filterStatus === 'completed',
+            selected: filterStatus === Status.Completed,
           })}
           data-cy="FilterLinkCompleted"
-          onClick={() => onFilterChange('completed')}
+          onClick={() => onFilterChange(Status.Completed)}
         >
           Completed
         </a>
